@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block title %}Specific title{% endblock %}
+{% block body %}
+<!-- Main hero unit for a primary marketing message or call to action -->
+<div class="hero-unit">
+  <h1>Hello, world!</h1>
+  <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+  <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+</div>
+<!-- Small grid -->
+<div class="row">
+  <div class="span6">
+    <h2>Email address</h2>
+    <p>You can receive a remind as email.</p>
+    <form method="POST" action="/register_address" class="well">
+      <div class="control-group">
+        {% if error %}
+        <fieldset class="control-group error">
+        {% endif %}
+        <label class="control-label" for="inputIcon">Email address</label>
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-envelope"></i></span><input class="span4" id="inputIcon" type="text" name="email_address" placeholder="foo@example.com" value="{{ addr }}" />
+          </div>
+        </div>
+        {% if error %}
+              <span class="help-block">{{ error }}</span>
+        {% endif %}
+        {% if error %}
+        </fieldset>
+        {% endif %}
+      </div>
+      <button type="submit" class="btn">Submit</button>
+    </form>
+  </div>
+  <div class="span6">
+    <h2>Twitter</h2>
+    <p>You can receive as mentioned tweet.</p>
+    <p><strong>Comming soon.</strong></p>
+  </div>
+</div>
+{% endblock %}
