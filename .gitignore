@@ -16,7 +16,6 @@ src/app.yaml
 src/libs/
 .DS_Store
 .*
-/downloads
 
 # Installer logs
 pip-log.txt
