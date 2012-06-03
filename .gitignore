@@ -12,10 +12,6 @@ var
 sdist
 develop-eggs
 .installed.cfg
-src/app.yaml
-src/libs/
-.DS_Store
-.*
 
 # Installer logs
 pip-log.txt
