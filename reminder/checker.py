@@ -26,12 +26,16 @@ def tweet(s):
                      TWI_ACCESS_TOKEN_KEY,
                      TWI_ACCESS_TOKEN_SECRET)
     r = api.request('statuses/update', {'status': s})
-    print(r.status_code)
+    if r.status_code != 200:
+        print(r.status_code)
+        print(r.headers)
+        print(r.text)
 
 
 def run(q):
     program = check(q)
+    import time
     if program:
-        tweet("@shrkwh %sの放送が予定されています。" % q)
+        tweet("@shrkwh %sの放送が予定されています。 %i" % (q, int(time.mktime(time.gmtime()))))
     else:
-        tweet("@shrkwh %sの放送が見つかりませんでした。" % q)
+        tweet("@shrkwh %sの放送が見つかりませんでした。 %i" % (q, int(time.mktime(time.gmtime()))))

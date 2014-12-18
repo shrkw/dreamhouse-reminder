@@ -4,6 +4,11 @@
 from __future__ import division, print_function, absolute_import
 import argparse
 
+import sys
+import os
+#sys.path.append(os.pardir)
+sys.path.append(os.getcwd())
+
 from reminder import checker
 
 if __name__ == "__main__":
