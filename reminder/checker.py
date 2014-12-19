@@ -3,10 +3,14 @@
 
 import urllib.request
 import urllib.parse
+from collections import namedtuple
+
 from bs4 import BeautifulSoup
 from TwitterAPI import TwitterAPI
 
 from .config import * # noqa
+
+Schedule = namedtuple('Schedule', ['date', 'time'])
 
 def check(q):
     '''
@@ -15,9 +19,11 @@ def check(q):
     res = BeautifulSoup(urllib.request.urlopen(b % urllib.parse.quote_plus(q)))
     cnt = res.find_all("span", attrs={"class" : "yjL"})[1]
     if int(cnt.text) is not 0:
-        return True
+        left = res.find("div", attrs={"class": "leftarea"})
+        child = left.findChild('p')
+        return Schedule(child.text, child.nextSibling.nextSibling.text)
     else:
-        return False
+        return None
 
 
 def tweet(s):
@@ -33,9 +39,7 @@ def tweet(s):
 
 
 def run(q):
-    program = check(q)
+    schedule = check(q)
     import time
-    if program:
-        tweet("@shrkwh %sの放送が予定されています。 %i" % (q, int(time.mktime(time.gmtime()))))
-    else:
-        tweet("@shrkwh %sの放送が見つかりませんでした。 %i" % (q, int(time.mktime(time.gmtime()))))
+    if schedule is not None:
+        tweet("@shrkwh %sの放送が予定されています。 %s %s %i" % (q, schedule.date, schedule.time, int(time.mktime(time.gmtime()))))
