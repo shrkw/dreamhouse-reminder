@@ -26,6 +26,6 @@ if __name__ == "__main__":
 
     try:
         checker.run(args.query)
-    except Exception(e):
+    except Exception as e:
         logger.error('Error: ', exc_info=True)
     logger.debug("end")
