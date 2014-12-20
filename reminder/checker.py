@@ -10,18 +10,24 @@ from TwitterAPI import TwitterAPI
 
 from .config import * # noqa
 
-Schedule = namedtuple('Schedule', ['date', 'time'])
+import logging
+from .logger import handler
+logger = logging.getLogger(__name__)
+logger.addHandler(handler)
+
+Schedule = namedtuple("Schedule", ["date", "time", "url"])
 
 def check(q):
     '''
     '''
     b = "http://tv.yahoo.co.jp/search/?q=%s&g=&Submit.x=0&Submit.y=0"
-    res = BeautifulSoup(urllib.request.urlopen(b % urllib.parse.quote_plus(q)))
+    url = b % urllib.parse.quote_plus(q)
+    res = BeautifulSoup(urllib.request.urlopen(url))
     cnt = res.find_all("span", attrs={"class" : "yjL"})[1]
     if int(cnt.text) is not 0:
         left = res.find("div", attrs={"class": "leftarea"})
         child = left.findChild('p')
-        return Schedule(child.text, child.nextSibling.nextSibling.text)
+        return Schedule(child.text, child.nextSibling.nextSibling.text, url)
     else:
         return None
 
@@ -32,14 +38,17 @@ def tweet(s):
                      TWI_ACCESS_TOKEN_KEY,
                      TWI_ACCESS_TOKEN_SECRET)
     r = api.request('statuses/update', {'status': s})
+    logger.info("twitter response code: %s, text: %s" % (r.status_code, r.text))
     if r.status_code != 200:
-        print(r.status_code)
-        print(r.headers)
-        print(r.text)
+        logger.warn("headers: %s" % (r.headers))
 
 
 def run(q):
     schedule = check(q)
     import time
     if schedule is not None:
-        tweet("@shrkwh %sの放送が予定されています。 %s %s %i" % (q, schedule.date, schedule.time, int(time.mktime(time.gmtime()))))
+        logger.info("found: %s" % q)
+        tweet("@%s %sの放送が予定されています。 %s %s %s" % ("shrkwh", q, schedule.date, schedule.time, schedule.url))
+        #int(time.mktime(time.gmtime()))
+    else:
+        logger.info("not found: %s" % q)
