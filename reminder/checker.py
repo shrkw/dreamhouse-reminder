@@ -38,7 +38,8 @@ def tweet(s):
                      TWI_ACCESS_TOKEN_KEY,
                      TWI_ACCESS_TOKEN_SECRET)
     r = api.request('statuses/update', {'status': s})
-    logger.info("twitter response code: %s, text: %s" % (r.status_code, r.text))
+    logger.info("twitter response code: %s" % (r.status_code))
+    logger.debug("twitter response text: %s" % (r.text))
     if r.status_code != 200:
         logger.warn("headers: %s" % (r.headers))
 
