@@ -23,9 +23,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='search TV program in Yahoo! TV schedule')
     parser.add_argument('query', nargs="?", help='TV program title', default='完成!ドリームハウス')
     args = parser.parse_args()
-
-    try:
-        checker.run(args.query)
-    except Exception as e:
-        logger.error('Error: ', exc_info=True)
+    import time
+    import calendar
+    wday = time.gmtime().tm_wday
+    if wday == calendar.MONDAY or wday == calendar.WEDNESDAY or wday == calendar.FRIDAY:
+        try:
+            checker.run(args.query)
+        except Exception as e:
+            logger.error('Error: ', exc_info=True)
+    else:
+        logger.debug("was not executed, day of week: %i" % wday)
     logger.debug("end")
