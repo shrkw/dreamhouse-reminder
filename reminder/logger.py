@@ -3,8 +3,6 @@
 
 import logging
 
-# logging.basicConfig(filename='out.log', format='%(asctime)s: %(levelname)s: %(message)s', level=logging.DEBUG)
-
 
 def get_logger():
     logger = logging.getLogger(__name__)
@@ -14,7 +12,8 @@ def get_logger():
     ch = logging.StreamHandler()
     ch.setLevel(logging.INFO)
     # create formatter and add it to the handlers
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(asctime)s - %(name)s -'
+                                  ' %(levelname)s - %(message)s')
     ch.setFormatter(formatter)
     # add the handlers to logger
     logger.addHandler(ch)
@@ -24,7 +23,8 @@ def get_logger():
 def standard_handler():
     ch = logging.StreamHandler()
     ch.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(asctime)s - %(name)s -'
+                                  ' %(levelname)s - %(message)s')
     ch.setFormatter(formatter)
     return ch
 
