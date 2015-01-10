@@ -18,7 +18,7 @@ logger.addHandler(handler)
 
 
 if __name__ == "__main__":
-    logger.debug("start")
+    logger.info("start")
     parser = argparse.ArgumentParser(
         description='search TV program in Yahoo! TV schedule')
     parser.add_argument('query', nargs="?",
@@ -28,12 +28,11 @@ if __name__ == "__main__":
     import calendar
     wday = time.gmtime().tm_wday
     if (wday == calendar.MONDAY or
-       wday == calendar.WEDNESDAY or
-       wday == calendar.FRIDAY):
+       wday == calendar.THURSDAY):
         try:
             checker.run(args.query)
         except Exception as e:
             logger.error('Error: ', exc_info=True)
     else:
-        logger.debug("was not executed, day of week: %i" % wday)
-    logger.debug("end")
+        logger.info("was not executed, day of week: %i" % wday)
+    logger.info("end")
