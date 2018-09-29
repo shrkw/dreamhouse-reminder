@@ -7,6 +7,7 @@ from .twitter_notifier import TwitterNotifier
 class Notifier:
     @classmethod
     def lookup(cls, type):
+        type = type.lower()
         if type == "twitter":
             return TwitterNotifier()
         elif type == "slack":
