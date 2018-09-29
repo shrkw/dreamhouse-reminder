@@ -6,9 +6,9 @@ import urllib.parse
 from collections import namedtuple
 
 from bs4 import BeautifulSoup
-from TwitterAPI import TwitterAPI
 
 from .config import *  # noqa
+from .notifier import Notifier
 
 import logging
 from .logger import handler
@@ -30,24 +30,12 @@ def check(q):
     else:
         return None
 
-
-def tweet(s):
-    api = TwitterAPI(TWI_CONSUMER_KEY,
-                     TWI_CONSUMER_SECRET,
-                     TWI_ACCESS_TOKEN_KEY,
-                     TWI_ACCESS_TOKEN_SECRET)
-    r = api.request('statuses/update', {'status': s})
-    logger.info("twitter response code: %s" % (r.status_code))
-    logger.debug("twitter response text: %s" % (r.text))
-    if r.status_code != 200:
-        logger.warn("headers: %s" % (r.headers))
-
-
 def run(q):
     schedule = check(q)
     if schedule is not None:
         logger.info("found: %s" % q)
-        tweet("@%s %sの放送が予定されています。 %s %s %s" %
-              ("shrkwh", q, schedule.date, schedule.time, schedule.url))
+        notifier = Notifier.lookup("slack")
+        notifier.notify("@%s %sの放送が予定されています。 %s %s %s" %
+                       ("shrkwh", q, schedule.date, schedule.time, schedule.url))
     else:
         logger.info("not found: %s" % q)
