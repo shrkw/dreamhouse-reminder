@@ -19,7 +19,7 @@ Schedule = namedtuple("Schedule", ["date", "time", "url"])
 
 
 def check(q):
-    b = "http://tv.yahoo.co.jp/search/?q=%s&g=&Submit.x=0&Submit.y=0"
+    b = "https://tv.yahoo.co.jp/search/?q=%s&g=&Submit.x=0&Submit.y=0"
     url = b % urllib.parse.quote_plus(q)
     res = BeautifulSoup(urllib.request.urlopen(url))
     cnt = res.find_all("span", attrs={"class": "yjL"})[1]
