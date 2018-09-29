@@ -4,6 +4,7 @@
 from .slack_notifier import SlackNotifier
 from .twitter_notifier import TwitterNotifier
 
+
 class Notifier:
     @classmethod
     def lookup(cls, type):

@@ -11,12 +11,13 @@ logger.addHandler(handler)
 
 from .config import *  # noqa
 
+
 class SlackNotifier:
     def __init__(self):
         self.url = SLACK_WEBHOOK_URL
 
     def notify(self, message):
-        payload={"text": message}
+        payload = {"text": message}
         r = requests.post(self.url, data=json.dumps(payload))
         if r.status_code != 200:
             logger.warn("headers: %s" % (r.headers))

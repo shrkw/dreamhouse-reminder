@@ -26,7 +26,7 @@ if __name__ == "__main__":
        wday == calendar.THURSDAY):
         try:
             for name in program_names:
-                checker.run(names)
+                checker.run(name)
         except Exception as e:
             logger.error('Error: ', exc_info=True)
     else:

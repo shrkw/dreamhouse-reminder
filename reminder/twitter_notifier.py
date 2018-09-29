@@ -10,12 +10,13 @@ logger.addHandler(handler)
 
 from .config import *  # noqa
 
+
 class TwitterNotifier:
     def __init__(self):
         self.client = TwitterAPI(TWI_CONSUMER_KEY,
-                         TWI_CONSUMER_SECRET,
-                         TWI_ACCESS_TOKEN_KEY,
-                         TWI_ACCESS_TOKEN_SECRET)
+                                 TWI_CONSUMER_SECRET,
+                                 TWI_ACCESS_TOKEN_KEY,
+                                 TWI_ACCESS_TOKEN_SECRET)
 
     def notify(self, message):
         r = self.client.request('statuses/update', {'status': message})

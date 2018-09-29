@@ -30,12 +30,14 @@ def check(q):
     else:
         return None
 
+
 def run(q):
     schedule = check(q)
     if schedule is not None:
         logger.info("found: %s" % q)
         notifier = Notifier.lookup("slack")
         notifier.notify("@%s %sの放送が予定されています。 %s %s %s" %
-                       ("shrkwh", q, schedule.date, schedule.time, schedule.url))
+                        ("shrkwh", q, schedule.date, schedule.time,
+                         schedule.url))
     else:
         logger.info("not found: %s" % q)
