@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 logger.addHandler(handler)
 
-program_names = ("完成!ドリームハウス", "ローカル路線バス乗り継ぎの旅")
+program_names = ("完成!ドリームハウス", "ローカル路線バス乗り継ぎの旅", "ハードボイルドグルメリポート")
 
 if __name__ == "__main__":
     logger.info("start")
