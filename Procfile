@@ -1,1 +1,1 @@
-web: gunicorn hello:app --log-file=-
+clock: python bin/run_check.py
