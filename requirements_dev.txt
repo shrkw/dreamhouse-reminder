@@ -1,7 +1,7 @@
 -r requirements.txt
-flake8==2.2.5
-gnureadline==6.3.3
-ipython==2.3.1
-mccabe==0.3
-pep8==1.5.7
-pyflakes==0.8.1
+flake8==3.5.0
+gnureadline==6.3.8
+ipython==7.0.1
+mccabe==0.6.1
+pep8==1.7.1
+pyflakes==2.0.0
