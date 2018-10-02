@@ -21,7 +21,7 @@ Schedule = namedtuple("Schedule", ["date", "time", "url"])
 def check(q):
     b = "https://tv.yahoo.co.jp/search/?q=%s&g=&Submit.x=0&Submit.y=0"
     url = b % urllib.parse.quote_plus(q)
-    res = BeautifulSoup(urllib.request.urlopen(url))
+    res = BeautifulSoup(urllib.request.urlopen(url), "html.parser")
     cnt = res.find_all("span", attrs={"class": "yjL"})[1]
     if int(cnt.text) is not 0:
         left = res.find("div", attrs={"class": "leftarea"})
