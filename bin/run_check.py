@@ -22,7 +22,7 @@ if __name__ == "__main__":
     logger.info("start")
     parser = argparse.ArgumentParser(
         description='search TV program in Yahoo! TV schedule')
-    parser.add_argument("--force", help="run forceful", action="store_true")
+    parser.add_argument("-f", "--force", help="run forceful", action="store_true")
     args = parser.parse_args()
     import time
     import calendar
